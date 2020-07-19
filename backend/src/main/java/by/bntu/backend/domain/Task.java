@@ -31,7 +31,7 @@ public class Task {
     @JsonView(Views.FullTask.class)
     private String description;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "task")
     @JsonView(Views.FullTask.class)
     private Set<Comment> comments = new HashSet<>();
 
