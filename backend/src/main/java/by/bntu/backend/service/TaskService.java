@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
-    private TaskRepo taskRepo;
+    private final TaskRepo taskRepo;
 
     @Autowired
     public TaskService(TaskRepo taskRepo) {
