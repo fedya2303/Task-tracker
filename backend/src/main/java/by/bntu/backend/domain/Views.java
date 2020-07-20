@@ -11,4 +11,6 @@ public final class Views {
     public interface FullTask extends IdName {}
 
     public interface FullProject extends IdName {}
+
+    public interface FullProfile extends IdName {}
 }

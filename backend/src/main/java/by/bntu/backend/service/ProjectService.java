@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class ProjectService {
 
-    private ProjectRepo projectRepo;
+    private final ProjectRepo projectRepo;
 
     @Autowired
     public ProjectService(ProjectRepo projectRepo) {

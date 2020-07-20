@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    private CommentRepo commentRepo;
+    private final CommentRepo commentRepo;
 
     @Autowired
     public CommentService(CommentRepo commentRepo) {
