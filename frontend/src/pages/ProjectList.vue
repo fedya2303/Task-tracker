@@ -3,7 +3,7 @@
         <v-flex class="mb-5 mt-3 text-md-center">
             <h1>Projects</h1>
             <div class=" mt-1">Choose any project</div>
-            <div v-if="isManager(getUser.roles)"> or create
+            <div v-if="isManager"> or create
                 <router-link :to="`/newproject`">new</router-link>
             </div>
         </v-flex>
@@ -35,8 +35,8 @@
             this.$store.dispatch('loadProjects')
         },
         methods: {
-            isManager(roles) {
-                return roles.some( role => role === 'MANAGER')
+            isManager() {
+                return this.getUser.roles.some( role => role === 'MANAGER')
             },
         }
     }

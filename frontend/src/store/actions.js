@@ -44,6 +44,12 @@ const actions = {
           .then((json) => {
               commit('setProjects', json.data)
           })
+    },
+    async createProject({ commit }, data) {
+      axios.post('http://localhost:8082/projects', data)
+          .then((json) => {
+              commit('addProject', json.data)
+          })
     }
 };
 
