@@ -1,8 +1,7 @@
 package by.bntu.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +13,6 @@ import java.util.Set;
 @Table(name = "task")
 @Data
 @EqualsAndHashCode(of = "id")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
 public class Task {
 
     @Id
@@ -33,6 +28,7 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     @JsonView(Views.FullTask.class)
+    @JsonManagedReference
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne

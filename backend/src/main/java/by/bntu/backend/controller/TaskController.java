@@ -21,7 +21,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/projects/{projectId}/tasks/{taskId}")
+    @GetMapping("/tasks/{taskId}")
     @JsonView(Views.FullTask.class)
     public Task getTask(
             @PathVariable("taskId") Long taskId

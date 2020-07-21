@@ -28,4 +28,8 @@ public class ProjectService {
         Optional<Project> project = projectRepo.findById(id);
         return project.orElseThrow(NotFoundResourceException::new);
     }
+
+    public List<Project> getAllProjectsForUser(String name) {
+        return projectRepo.findAllByUsersIsLike(name);
+    }
 }
