@@ -3,7 +3,10 @@ import Router from 'vue-router';
 import Home from '../components/Home.vue';
 import NotFound from '../components/NotFound.vue';
 import SignIn from '../components/SignIn.vue';
-import Secured from '../components/Secured.vue';
+import ProjectList from "../pages/ProjectList";
+import Project from "../pages/Project";
+import Task from "../pages/Task";
+import ProjectForm from "../components/project/ProjectForm";
 
 Vue.use(Router);
 
@@ -15,15 +18,27 @@ const router = new Router({
       redirect: '/home',
     },
     {
+      path: '/main',
+      name: 'Main',
+      component: ProjectList
+    },
+    {
+      path: '/project/:id?',
+      component: Project
+    },
+    {
+      path: '/task/:id?',
+      component: Task
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home,
       meta: { nonRequiresAuth: true },
     },
     {
-      path: '/secured',
-      name: 'Secured',
-      component: Secured,
+      path: '/newproject',
+      component: ProjectForm
     },
     {
       path: '/signIn',

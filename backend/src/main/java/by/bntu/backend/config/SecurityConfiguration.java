@@ -54,6 +54,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                     .authorizeRequests()
+                .antMatchers("/newproject").hasAnyAuthority("MANAGER")
                 .antMatchers("/main").hasAnyAuthority("DEVELOPER", "MANAGER")
                 .antMatchers("/**").permitAll()
                 .and()

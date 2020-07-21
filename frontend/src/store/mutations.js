@@ -15,7 +15,7 @@ const mutations = {
     state.loading = payload;
   },
   setProjects(state, payload) {
-    state.loading = payload;
+    state.projects = payload;
   }
 };
 

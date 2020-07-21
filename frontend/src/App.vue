@@ -40,9 +40,9 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       if (this.isAuthenticated) {
         return [
           { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Secured page', path: '/secured', icon: 'vpn_key' },
+          { title: 'Projects', path: '/main', icon: 'vpn_key' },
         ];
       }
       return [
@@ -88,3 +88,14 @@ export default {
   },
 };
 </script>
+
+
+<style>
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+</style>
