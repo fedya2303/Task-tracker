@@ -16,6 +16,16 @@ const mutations = {
   },
   setProjects(state, payload) {
     state.projects = payload;
+  },
+  addProject(state, payload) {
+    if (state.projects) {
+      state.projects = [
+          ...state.projects,
+          payload
+      ]
+    } else {
+      state.projects = [ payload ]
+    }
   }
 };
 

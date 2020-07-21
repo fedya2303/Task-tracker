@@ -32,4 +32,8 @@ public class ProjectService {
     public List<Project> getAllProjectsForUser(String name) {
         return projectRepo.findAllByUsersIsLike(name);
     }
+
+    public void saveProject(Project project) {
+        projectRepo.save(project);
+    }
 }
