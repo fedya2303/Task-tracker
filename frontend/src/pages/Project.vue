@@ -36,7 +36,6 @@
         },
         methods: {
             async loadProject() {
-                console.log('loading1')
                 axios.get(`http://localhost:8082/projects/${this.$route.params.id}`)
                     .then((json) => {
                         this.project = json.data
