@@ -1,13 +1,25 @@
 <template>
     <v-container>
-        <div class="text-md-center" v-if="this.$route.params.id">
-            <h3>Update project</h3>
-            <h2>{{project.name}}</h2>
-        </div>
-        <div v-else class="text-md-center">
-            <h3>Create new project</h3>
-        </div>
-        <form class="mx-15 px-15 mt-5">
+        <v-layout class="justify-space-between row">
+            <router-link :to="`/main`">
+                <v-btn class="py-8 px-0" rounded text>
+                    <v-icon class="" color="grey" size="40px">
+                        arrow_back_ios
+                    </v-icon>
+                </v-btn>
+            </router-link>
+
+            <v-flex class="d-flex justify-center">
+                <div class="text-lg-center" v-if="this.$route.params.id">
+                    <v-card-title primary-title class="layout justify-center">Update project</v-card-title>
+                    <h2>{{project.name}}</h2>
+                </div>
+                <div v-else class="text-lg-center">
+                    <v-card-title>Create new project</v-card-title>
+                </div>
+            </v-flex>
+        </v-layout>
+        <form class="mx-15 px-15 mt-15">
             <v-text-field
                     v-model="name"
                     :error-messages="nameErrors"
@@ -112,12 +124,12 @@
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
                     if (this.$route.params.id) {
-                        this.$store.dispatch('updateProject',{
+                        this.$store.dispatch('updateProject', {
                             id: this.project.id,
                             name: this.name,
                             description: this.description,
                             status: this.select
-                        } ).then(() =>
+                        }).then(() =>
                             this.$router.push({path: `/project/${this.$route.params.id}`})
                         )
                     } else {
@@ -126,7 +138,7 @@
                             description: this.description,
                             status: this.select
                         }).then(() => {
-                            const id = this.$store.getters.getProjects[this.$store.getters.getProjects.length-1].id
+                            const id = this.$store.getters.getProjects[this.$store.getters.getProjects.length - 1].id
                             this.$router.push({path: `/project/${id}`})
                         })
                     }
@@ -140,11 +152,13 @@
             },
         },
         beforeMount() {
-                this.loadProject();
+            this.loadProject();
         }
     }
 </script>
 
 <style scoped>
-
+    a {
+        text-decoration: none;
+    }
 </style>
