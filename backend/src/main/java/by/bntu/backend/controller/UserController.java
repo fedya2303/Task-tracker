@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 public class UserController {
 
@@ -17,9 +19,8 @@ public class UserController {
 
     @GetMapping("/usercreds")
     @JsonView(Views.FullProfile.class)
-    public User getUserCreds(Authentication authentication) {
-        System.out.println(authentication.getDetails());
-        User byUsername = userRepo.findByUsername(authentication.getName());
+    public User getUserCreds(Principal principal) {
+        User byUsername = userRepo.findByUsername(principal.getName());
         return byUsername;
     }
 }

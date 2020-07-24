@@ -35,20 +35,22 @@
             }
         },
         methods: {
-            async updateProject() {
+            async loadProject() {
+                console.log('loading1')
                 axios.get(`http://localhost:8082/projects/${this.$route.params.id}`)
                     .then((json) => {
                         this.project = json.data
                     })
+                this.$forceUpdate()
             }
         },
         watch: {
             '$route'() {
-                this.updateProject()
+                this.loadProject()
             }
         },
         beforeMount() {
-            this.updateProject()
+            this.loadProject()
         }
     }
 </script>

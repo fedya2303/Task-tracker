@@ -5,10 +5,10 @@
 
     <h2>
       <router-link
-        to="/secured"
+        to="/main"
         color="black"
       >
-        Go to secured page
+        Go to main page
       </router-link>
     </h2>
   </div>

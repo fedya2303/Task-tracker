@@ -1,6 +1,6 @@
 const mutations = {
   setUser(state, payload) {
-    state.user = payload;
+    state.user = payload
   },
   setAuth(state, payload) {
     localStorage.setItem('auth', payload);
@@ -25,6 +25,15 @@ const mutations = {
       ]
     } else {
       state.projects = [ payload ]
+    }
+  },
+  updateProject(state, project) {
+    const updateIndex = state.projects.findIndex(item => item.id === project.id)
+
+    state.projects = {
+      ...state.projects.slice(0, updateIndex),
+      project,
+      ...state.projects.slice(updateIndex + 1)
     }
   }
 };

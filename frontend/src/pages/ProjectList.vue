@@ -30,15 +30,23 @@
             ProjectRow
         },
         name: "ProjectList",
-        computed: mapGetters(['getProjects', 'getUser']),
-        created() {
+        data() {
+            return {
+                isM: true,
+                user: {}
+            }
+        },
+        computed: {...mapGetters(['getProjects', 'getUser']),
+            isManager: function () {
+                if (this.getUser && this.getUser.roles) {
+                    return this.getUser.roles.some(role => role === 'MANAGER')
+                }
+                return false
+            }
+        },
+        beforeMount() {
             this.$store.dispatch('loadProjects')
         },
-        methods: {
-            isManager() {
-                return this.getUser.roles.some( role => role === 'MANAGER')
-            },
-        }
     }
 </script>
 

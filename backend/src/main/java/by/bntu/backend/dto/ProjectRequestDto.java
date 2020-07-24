@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectCreateRequest {
+public class ProjectRequestDto {
+
+    private Long id;
 
     private String name;
 
