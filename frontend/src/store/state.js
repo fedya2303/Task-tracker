@@ -1,6 +1,6 @@
 const state = {
   isAuthenticated: localStorage.getItem('auth'),
-  user: null,
+  user: {},
   error: null,
   loading: false,
   projects: null

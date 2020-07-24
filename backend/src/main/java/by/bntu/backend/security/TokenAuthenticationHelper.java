@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 class TokenAuthenticationHelper {
-    private static final long EXPIRATION_TIME = 1000 * 60 * 30; // 30 minutes
+    private static final long EXPIRATION_TIME = 1000 * 60 * 30 * 3; // 30 minutes
     private static final String SECRET = "ThisIsASecret";
     private static final String COOKIE_BEARER = "COOKIE-BEARER";
 

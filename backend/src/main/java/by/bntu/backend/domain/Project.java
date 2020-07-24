@@ -1,8 +1,6 @@
 package by.bntu.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,6 +31,7 @@ public class Project {
 
     @OneToMany(mappedBy = "project")
     @JsonView(Views.FullProject.class)
+    @JsonManagedReference
     private Set<Task> tasks = new HashSet<>();
 
     @ManyToMany(mappedBy = "projects")

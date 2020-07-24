@@ -14,22 +14,43 @@
         >
             Show
         </v-btn>
+        <v-btn v-if="isManager"
+                @click="updateProject"
+                text>
+            Edit
+        </v-btn>
     </v-card>
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         name: "ProjectRow",
         props: ['project'],
+        computed: {...mapGetters(['getProjects', 'getUser']),
+            isManager: function () {
+                if (this.getUser) {
+                    return this.getUser.roles.some(role => role === 'MANAGER')
+                }
+                return false
+            }
+        },
         methods: {
             showProject() {
                 const id = this.project.id
                 this.$router.push({path: `/project/${id}`})
+            },
+            updateProject() {
+                const id = this.project.id
+                this.$router.push({path: `/newproject/${id}`})
             }
         }
     }
 </script>
 
 <style scoped>
-
+    a {
+        text-decoration: none;
+    }
 </style>

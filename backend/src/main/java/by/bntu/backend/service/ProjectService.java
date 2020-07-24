@@ -35,5 +35,12 @@ public class ProjectService {
 
     public void saveProject(Project project) {
         projectRepo.save(project);
+        projectRepo.flush();
+    }
+
+    public Project updateProject(Project project) {
+        Project save = projectRepo.save(project);
+        projectRepo.flush();
+        return save;
     }
 }
