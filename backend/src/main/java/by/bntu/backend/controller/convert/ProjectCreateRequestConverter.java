@@ -1,3 +1,4 @@
+
 package by.bntu.backend.controller.convert;
 
 import by.bntu.backend.domain.Project;
@@ -5,7 +6,7 @@ import by.bntu.backend.dto.ProjectRequestDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserCreateRequestConverter extends ProjectRequestConverter<ProjectRequestDto, Project> {
+public class ProjectCreateRequestConverter extends ProjectRequestConverter<ProjectRequestDto, Project> {
 
     @Override
     public Project convert(ProjectRequestDto request) {

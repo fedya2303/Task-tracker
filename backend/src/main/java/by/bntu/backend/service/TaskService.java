@@ -28,4 +28,12 @@ public class TaskService {
     public List<Task> getAllTasksForProject(Long projectId) {
         return taskRepo.findAllByProjectId(projectId);
     }
+
+    public Task saveTask(Task task) {
+        return taskRepo.save(task);
+    }
+
+    public void deleteTaskById(Long taskId) {
+        taskRepo.deleteById(taskId);
+    }
 }

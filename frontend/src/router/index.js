@@ -8,6 +8,7 @@ import Project from "../pages/Project";
 import Task from "../pages/Task";
 import ProjectForm from "../components/project/ProjectForm";
 import store from "../store";
+import TaskForm from "../components/task/TaskForm";
 
 Vue.use(Router);
 
@@ -41,7 +42,14 @@ const router = new Router({
             path: '/newproject/:id?',
             name: 'ProjectForm',
             component: ProjectForm,
-            meta: {manager: true}
+            meta: {manager: true},
+            props: true
+        },
+        {
+            path: '/project/:projectId?/task',
+            name: 'TaskForm',
+            component: TaskForm,
+            props: true
         },
         {
             path: '/signIn',
