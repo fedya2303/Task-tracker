@@ -35,7 +35,7 @@ public class ProjectController {
     }
 
     @GetMapping
-    @JsonView(Views.IdName.class)
+    @JsonView(Views.FullProject.class)
     public Set<Project> getAllProjectsForUser(Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         return user.getProjects();

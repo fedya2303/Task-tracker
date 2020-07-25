@@ -3,7 +3,8 @@ const state = {
   user: {},
   error: null,
   loading: false,
-  projects: null
+  projects: null,
+  tasks: null
 };
 
 export default state;

@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectRequestDto {
-
-    private Long id;
+public class TaskRequestDto {
 
     private String name;
 
@@ -17,3 +15,4 @@ public class ProjectRequestDto {
 
     private String status;
 }
+

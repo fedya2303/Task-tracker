@@ -56,6 +56,18 @@ const actions = {
             .then((json) => {
                 commit('updateProject', json.data)
             })
+    },
+    async createTask({commit}, data) {
+        return axios.post(`http://localhost:8082/projects/${data.id}/tasks`, data)
+            .then((json) => {
+                commit('createTask', json.data)
+            })
+    },
+    async deleteTask( { commit }, id) {
+        return axios.delete(`http://localhost:8082/tasks/${id}`)
+            .then(() => {
+                commit('deleteTask', id)
+            })
     }
 };
 

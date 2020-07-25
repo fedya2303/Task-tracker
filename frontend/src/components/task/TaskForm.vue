@@ -1,15 +1,7 @@
 <template>
     <v-container>
         <v-layout class="justify-space-between row">
-            <router-link v-if="isProjectPage" :to="`/project/${project.id}`">
-                <v-btn class="py-8 px-0" rounded text>
-                    <v-icon class="" color="grey" size="40px">
-                        arrow_back_ios
-                    </v-icon>
-                </v-btn>
-            </router-link>
-
-            <router-link v-else :to="`/main`">
+            <router-link :to="`/project/${projectId}`">
                 <v-btn class="py-8 px-0" rounded text>
                     <v-icon class="" color="grey" size="40px">
                         arrow_back_ios
@@ -18,12 +10,8 @@
             </router-link>
 
             <v-flex class="d-flex justify-center">
-                <div class="text-lg-center" v-if="this.$route.params.id">
-                    <v-card-title primary-title class="layout justify-center">Update project</v-card-title>
-                    <h2>{{project.name}}</h2>
-                </div>
-                <div v-else class="text-lg-center">
-                    <v-card-title>Create new project</v-card-title>
+                <div class="text-lg-center">
+                    <v-card-title>Create new task</v-card-title>
                 </div>
             </v-flex>
         </v-layout>
@@ -70,10 +58,9 @@
 <script>
     import {validationMixin} from 'vuelidate'
     import {required, maxLength} from 'vuelidate/lib/validators'
-    import axios from "axios";
 
     export default {
-        props: ['isProjectPage'],
+        props: ['projectId'],
         mixins: [validationMixin],
         validations: {
             name: {required, maxLength: maxLength(10)},
@@ -118,39 +105,17 @@
         },
 
         methods: {
-            async loadProject() {
-                if (this.$route.params.id) {
-                    axios.get(`http://localhost:8082/projects/${this.$route.params.id}`)
-                        .then((json) => {
-                            this.project = json.data;
-                            this.name = this.project.name;
-                            this.description = this.project.description;
-                            this.select = this.project.status;
-                        })
-                }
-            },
             submit() {
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
-                    if (this.$route.params.id) {
-                        this.$store.dispatch('updateProject', {
-                            id: this.project.id,
-                            name: this.name,
-                            description: this.description,
-                            status: this.select
-                        }).then(() =>
-                            this.$router.push({path: `/project/${this.$route.params.id}`})
-                        )
-                    } else {
-                        this.$store.dispatch('createProject', {
-                            name: this.name,
-                            description: this.description,
-                            status: this.select
-                        }).then(() => {
-                            const id = this.$store.getters.getProjects[this.$store.getters.getProjects.length - 1].id
-                            this.$router.push({path: `/project/${id}`})
-                        })
-                    }
+                    this.$store.dispatch('createTask', {
+                        id: this.projectId,
+                        name: this.name,
+                        description: this.description,
+                        status: this.select
+                    }).then(() => {
+                        this.$router.push({path: `/project/${this.projectId}`})
+                    })
                 }
             },
             clear() {
@@ -158,10 +123,7 @@
                 this.name = ''
                 this.description = ''
                 this.select = null
-            },
-        },
-        beforeMount() {
-            this.loadProject();
+            }
         }
     }
 </script>

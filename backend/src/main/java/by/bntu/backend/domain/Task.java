@@ -27,7 +27,7 @@ public class Task {
     @JsonView(Views.FullTask.class)
     private String description;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", orphanRemoval = true)
     @JsonView(Views.FullTask.class)
     @JsonManagedReference
     private Set<Comment> comments = new HashSet<>();
