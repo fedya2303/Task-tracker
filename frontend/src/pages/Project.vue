@@ -8,7 +8,7 @@
                     </v-icon>
                 </v-btn>
             </router-link>
-
+            
             <v-flex class="d-flex justify-center ml-16">
                 <div class="text-lg-center">
                     <v-card-title primary-title class="layout justify-center">Project</v-card-title>
@@ -25,9 +25,19 @@
             </router-link>
 
             <router-link
+                    v-if="isManager"
+                    :to="{ name: 'ProjectParticipantForm', params: { projectId: project.id } }"
+            >
+                <div>
+                    <v-btn text large>Add participant</v-btn>
+                </div>
+            </router-link>
+
+            <router-link
+                    v-if="isManager"
                     :to="{ name: 'ProjectForm', params: { isProjectPage, id: project.id } }"
             >
-                <div v-if="isManager">
+                <div>
                     <v-btn text large>Edit project</v-btn>
                 </div>
             </router-link>

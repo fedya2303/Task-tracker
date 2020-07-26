@@ -9,6 +9,7 @@ import Task from "../pages/Task";
 import ProjectForm from "../components/project/ProjectForm";
 import store from "../store";
 import TaskForm from "../components/task/TaskForm";
+import ProjectParticipantForm from "../components/project/ProjectParticipantForm";
 
 Vue.use(Router);
 
@@ -49,6 +50,12 @@ const router = new Router({
             path: '/project/:projectId?/task',
             name: 'TaskForm',
             component: TaskForm,
+            props: true
+        },
+        {
+            path: '/project/:projectId?/users',
+            name: 'ProjectParticipantForm',
+            component: ProjectParticipantForm,
             props: true
         },
         {
