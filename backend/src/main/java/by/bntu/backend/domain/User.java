@@ -39,6 +39,21 @@ public class User implements UserDetails {
 
     private String email;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_projects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    @JsonView(Views.FullProfile.class)
+    Set<Project> projects = new HashSet<>();
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @JsonView(Views.FullProfile.class)
+    Set<Role> roles = new HashSet<>();
+
     public User() {
     }
 
@@ -47,20 +62,6 @@ public class User implements UserDetails {
         this.password = password;
         this.roles = authorities.stream().map(grantedAuthority -> Role.valueOf(grantedAuthority.toString())).collect(Collectors.toSet());
     }
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_projects",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    Set<Project> projects = new HashSet<>();
-
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    @JsonView(Views.FullProfile.class)
-    Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

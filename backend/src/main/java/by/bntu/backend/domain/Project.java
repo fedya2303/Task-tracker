@@ -12,10 +12,6 @@ import java.util.Set;
 @Table(name = "project")
 @Data
 @EqualsAndHashCode(of = "id")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
 public class Project {
 
     @Id
