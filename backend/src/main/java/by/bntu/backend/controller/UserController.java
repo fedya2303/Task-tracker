@@ -67,8 +67,7 @@ public class UserController {
             @PathVariable("userId") Long userId
     ) {
         User user = userRepo.findById(userId).orElseThrow(NotFoundResourceException::new);
-        boolean b = user.getProjects().stream()
+        return user.getProjects().stream()
                 .anyMatch(project -> project.getId().equals(projectId));
-        return b;
     }
 }

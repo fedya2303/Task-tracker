@@ -30,7 +30,7 @@
         methods: {
             showTask() {
                 const id = this.task.id
-                this.$router.push({path: `/task/${id}`})
+                this.$router.push({path: `/project/${this.$route.params.projectId}/task/${id}`})
             },
             del() {
                 this.$store.dispatch('deleteTask', this.task.id)

@@ -18,7 +18,7 @@
             </router-link>
 
             <v-flex class="d-flex justify-center">
-                <div class="text-lg-center" v-if="this.$route.params.id">
+                <div class="text-lg-center" v-if="this.$route.params.projectId">
                     <v-card-title primary-title class="layout justify-center">Update project</v-card-title>
                     <h2>{{project.name}}</h2>
                 </div>
@@ -119,8 +119,8 @@
 
         methods: {
             async loadProject() {
-                if (this.$route.params.id) {
-                    axios.get(`http://localhost:8082/projects/${this.$route.params.id}`)
+                if (this.$route.params.projectId) {
+                    axios.get(`http://localhost:8082/projects/${this.$route.params.projectId}`)
                         .then((json) => {
                             this.project = json.data;
                             this.name = this.project.name;
@@ -132,14 +132,14 @@
             submit() {
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
-                    if (this.$route.params.id) {
+                    if (this.$route.params.projectId) {
                         this.$store.dispatch('updateProject', {
                             id: this.project.id,
                             name: this.name,
                             description: this.description,
                             status: this.select
                         }).then(() =>
-                            this.$router.push({path: `/project/${this.$route.params.id}`})
+                            this.$router.push({path: `/project/${this.$route.params.projectId}`})
                         )
                     } else {
                         this.$store.dispatch('createProject', {

@@ -35,7 +35,7 @@
 
             <router-link
                     v-if="isManager"
-                    :to="{ name: 'ProjectForm', params: { isProjectPage, id: project.id } }"
+                    :to="{ name: 'ProjectForm', params: { isProjectPage, projectId: project.id } }"
             >
                 <div>
                     <v-btn text large>Edit project</v-btn>
@@ -88,7 +88,7 @@
         },
         methods: {
             async loadProject() {
-                axios.get(`http://localhost:8082/projects/${this.$route.params.id}`)
+                axios.get(`http://localhost:8082/projects/${this.$route.params.projectId}`)
                     .then((json) => {
                         this.project = json.data
                         this.$store.state.tasks = this.project.tasks

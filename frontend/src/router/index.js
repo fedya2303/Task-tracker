@@ -26,13 +26,14 @@ const router = new Router({
             component: ProjectList
         },
         {
-            path: '/project/:id?',
+            path: '/project/:projectId?',
             component: Project,
             meta: {mustBeParticipant: true}
         },
         {
-            path: '/task/:id?',
-            component: Task
+            path: '/project/:projectId?/task/:taskId?',
+            component: Task,
+            meta: {mustBeParticipant: true}
         },
         {
             path: '/home',
@@ -41,7 +42,7 @@ const router = new Router({
             meta: {nonRequiresAuth: true},
         },
         {
-            path: '/newproject/:id?',
+            path: '/newproject/:projectId?',
             name: 'ProjectForm',
             component: ProjectForm,
             meta: {manager: true},
@@ -86,7 +87,7 @@ router.beforeEach((to, from, next) => {
     } else if (isLoginPage && isAuthenticated) {
         router.push('/home');
     } else if (mustBeParticipant) {
-        isAllowed(to.params.id)
+        isAllowed(to.params.projectId)
             .then(() => {
                 if (!store.state.isAllowed) {
                     router.push('/main')
