@@ -3,6 +3,7 @@ package by.bntu.backend.controller;
 import by.bntu.backend.domain.Project;
 import by.bntu.backend.domain.User;
 import by.bntu.backend.domain.Views;
+import by.bntu.backend.exception.NotFoundResourceException;
 import by.bntu.backend.repository.UserRepo;
 import by.bntu.backend.service.ProjectService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -57,5 +59,15 @@ public class UserController {
 
         userRepo.saveAll(usersInProject);
         userRepo.saveAll(allUsers);
+    }
+
+    @GetMapping("/projects/{projectId}/participants/{userId}")
+    public boolean isParticipant(
+            @PathVariable("projectId") Long projectId,
+            @PathVariable("userId") Long userId
+    ) {
+        User user = userRepo.findById(userId).orElseThrow(NotFoundResourceException::new);
+        return user.getProjects().stream()
+                .anyMatch(project -> project.getId().equals(projectId));
     }
 }

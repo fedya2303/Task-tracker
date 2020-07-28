@@ -28,12 +28,19 @@ public class TaskController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/tasks/{taskId}")
+    @GetMapping("/projects/{projectId}/tasks/{taskId}")
     @JsonView(Views.FullTask.class)
     public Task getTask(
-            @PathVariable("taskId") Long taskId
+            @PathVariable("taskId") Long taskId,
+            @PathVariable("projectId") Long projectId
     ) {
-        return taskService.getTask(taskId);
+        Task task = taskService.getTask(taskId);
+        Project project = projectService.getProject(projectId);
+        boolean contains = project.getTasks().contains(task);
+        if (contains) {
+            return task;
+        }
+        return null;
     }
 
     @GetMapping("/projects/{projectId}/tasks")

@@ -53,6 +53,9 @@ const mutations = {
             ...state.tasks.slice(0, deleteIndex),
             ...state.tasks.slice(deleteIndex + 1)
         ]
+    },
+    setIsAllowed(state, isAllowed) {
+        state.isAllowed = isAllowed
     }
 };
 

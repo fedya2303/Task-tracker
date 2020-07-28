@@ -4,7 +4,8 @@ const state = {
   error: null,
   loading: false,
   projects: null,
-  tasks: null
+  tasks: null,
+  isAllowed: false
 };
 
 export default state;

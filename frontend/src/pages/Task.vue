@@ -32,7 +32,7 @@
         },
         methods: {
             async updateTask() {
-                axios.get(`http://localhost:8082/tasks/${this.$route.params.id}`)
+                axios.get(`http://localhost:8082/projects/${this.$route.params.projectId}/tasks/${this.$route.params.taskId}`)
                     .then((json) => {
                         this.task = json.data
                     })
