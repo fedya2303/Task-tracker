@@ -22,24 +22,7 @@ export default {
       data: '',
       status: '',
     };
-  },
-  created() {
-    this.getHomePageInformation();
-  },
-  methods: {
-    getHomePageInformation() {
-      this.$axios
-        .get('http://localhost:8082/homepage')
-        .then((response) => {
-          console.log('Get response: ', response.data);
-          this.data = response.data;
-        })
-        .catch((error) => {
-          this.alert = true;
-          console.error(error);
-        });
-    },
-  },
+  }
 };
 </script>
 

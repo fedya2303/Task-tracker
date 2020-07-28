@@ -27,7 +27,8 @@ const router = new Router({
         },
         {
             path: '/project/:id?',
-            component: Project
+            component: Project,
+            meta: {mustBeParticipant: true}
         },
         {
             path: '/task/:id?',
@@ -50,13 +51,15 @@ const router = new Router({
             path: '/project/:projectId?/task',
             name: 'TaskForm',
             component: TaskForm,
-            props: true
+            props: true,
+            meta: {mustBeParticipant: true}
         },
         {
             path: '/project/:projectId?/users',
             name: 'ProjectParticipantForm',
             component: ProjectParticipantForm,
-            props: true
+            props: true,
+            meta: {mustBeParticipant: true}
         },
         {
             path: '/signIn',
@@ -76,15 +79,28 @@ router.beforeEach((to, from, next) => {
     const isLoginPage = to.matched.some((record) => record.meta.loginPage);
     const isAuthenticated = localStorage.getItem('auth');
     const mustBeManager = to.matched.some((record) => record.meta.manager)
+    const mustBeParticipant = to.matched.some((record) => record.meta.mustBeParticipant)
+
     if (requiresAuth && !isAuthenticated) {
         next('/signIn');
     } else if (isLoginPage && isAuthenticated) {
         router.push('/home');
+    } else if (mustBeParticipant) {
+        isAllowed(to.params.id)
+            .then(() => {
+                if (!store.state.isAllowed) {
+                    router.push('/main')
+                }
+            })
     } else if (isAuthenticated && mustBeManager && !isManager()) {
         router.push('/main')
     }
     next();
 });
+
+function isAllowed(projectId) {
+    return store.dispatch('isAllowed', {projectId: projectId, userId: store.state.user.id})
+}
 
 function isManager() {
     if (store.state.user && store.state.user.roles) {

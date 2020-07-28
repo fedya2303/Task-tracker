@@ -68,6 +68,12 @@ const actions = {
             .then(() => {
                 commit('deleteTask', id)
             })
+    },
+    async isAllowed( { commit }, payload) {
+        return axios.get(`http://localhost:8082/projects/${payload.projectId}/participants/${payload.userId}`)
+            .then((json) => {
+                commit('setIsAllowed', json.data)
+            })
     }
 };
 
