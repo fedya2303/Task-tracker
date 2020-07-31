@@ -22,6 +22,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException
     {
         try {
+            String contextPath = request.getContextPath();
+            String pathInfo = request.getPathInfo();
+            String requestURI = request.getRequestURI();
+            StringBuffer requestURL = request.getRequestURL();
+            if (("/registration").equals(request.getRequestURI()) ||
+                    ("/login").equals(request.getRequestURI()) ||
+                    request.getRequestURI().contains("/activate")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             Authentication authentication = TokenAuthenticationHelper.getAuthentication(request);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
