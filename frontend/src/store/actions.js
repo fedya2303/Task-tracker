@@ -14,7 +14,7 @@ const actions = {
             .then(() => {
                 commit('setAuth', true);
                 commit('setLoading', false);
-                commit('setError', null);
+                commit('setError', false);
                 EventBus.$emit('authenticated', 'User authenticated');
                 axios.get('http://localhost:8082/usercreds')
                     .then((json) => {
@@ -22,8 +22,8 @@ const actions = {
                     })
                 router.push('/home');
             })
-            .catch((error) => {
-                commit('setError', error.message);
+            .catch(() => {
+                commit('setError', true);
                 commit('setLoading', false);
             });
     },

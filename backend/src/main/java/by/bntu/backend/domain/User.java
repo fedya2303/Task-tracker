@@ -33,6 +33,8 @@ public class User implements UserDetails {
     @JsonView(Views.FullProfile.class)
     private String lastName;
 
+    private boolean active;
+
     private String password;
 
     private String activationCode;
@@ -86,6 +88,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Long getId() {

@@ -34,6 +34,9 @@ public class TaskService {
     }
 
     public void deleteTaskById(Long taskId) {
-        taskRepo.deleteById(taskId);
+        Optional<Task> task = taskRepo.findById(taskId);
+        if (task.isPresent()) {
+            taskRepo.deleteById(taskId);
+        }
     }
 }

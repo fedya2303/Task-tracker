@@ -10,6 +10,9 @@ import ProjectForm from "../components/project/ProjectForm";
 import store from "../store";
 import TaskForm from "../components/task/TaskForm";
 import ProjectParticipantForm from "../components/project/ProjectParticipantForm";
+import RegistrationForm from "../pages/RegistrationForm";
+import EmailActivation from "../pages/EmailActivation";
+import EmailConfirmation from "../pages/EmailConfirmation";
 
 Vue.use(Router);
 
@@ -66,7 +69,25 @@ const router = new Router({
             path: '/signIn',
             name: 'signIn',
             component: SignIn,
-            meta: {loginPage: true, nonRequiresAuth: true},
+            meta: {loginPage: true, nonRequiresAuth: true}
+        },
+        {
+            path: '/registration',
+            name: 'RegistrationForm',
+            component: RegistrationForm,
+            meta: {nonRequiresAuth: true}
+        },
+        {
+            path: '/activate/:code',
+            name: 'EmailActivation',
+            component: EmailActivation,
+            meta: {nonRequiresAuth: true}
+        },
+        {
+            path: '/email/confirmation',
+            name: 'EmailConfirmation',
+            component: EmailConfirmation,
+            meta: {nonRequiresAuth: true}
         },
         {
             path: '*',
@@ -81,7 +102,6 @@ router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('auth');
     const mustBeManager = to.matched.some((record) => record.meta.manager)
     const mustBeParticipant = to.matched.some((record) => record.meta.mustBeParticipant)
-
     if (requiresAuth && !isAuthenticated) {
         next('/signIn');
     } else if (isLoginPage && isAuthenticated) {
