@@ -1,4 +1,4 @@
-package by.bntu.backend.controller.convert;
+package by.bntu.backend.controller.convert.task;
 
 import by.bntu.backend.domain.Task;
 import by.bntu.backend.dto.TaskRequestDto;

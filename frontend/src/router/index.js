@@ -26,17 +26,22 @@ const router = new Router({
         {
             path: '/main',
             name: 'Main',
-            component: ProjectList
+            component: ProjectList,
+            props: true
         },
         {
             path: '/project/:projectId?',
             component: Project,
-            meta: {mustBeParticipant: true}
+            name: 'Project',
+            meta: {mustBeParticipant: true},
+            props: true
         },
         {
             path: '/project/:projectId?/task/:taskId?',
             component: Task,
-            meta: {mustBeParticipant: true}
+            name: 'Task',
+            meta: {mustBeParticipant: true},
+            props: true
         },
         {
             path: '/home',
@@ -52,7 +57,7 @@ const router = new Router({
             props: true
         },
         {
-            path: '/project/:projectId?/task',
+            path: '/project/:projectId?/newtask/:taskId?',
             name: 'TaskForm',
             component: TaskForm,
             props: true,

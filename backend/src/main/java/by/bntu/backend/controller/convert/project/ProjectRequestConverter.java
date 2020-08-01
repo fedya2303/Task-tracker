@@ -1,5 +1,6 @@
-package by.bntu.backend.controller.convert;
+package by.bntu.backend.controller.convert.project;
 
+import by.bntu.backend.controller.convert.EntityConverter;
 import by.bntu.backend.domain.Project;
 import by.bntu.backend.domain.Status;
 import by.bntu.backend.dto.ProjectRequestDto;

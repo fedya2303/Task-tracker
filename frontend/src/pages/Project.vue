@@ -8,14 +8,8 @@
                     </v-icon>
                 </v-btn>
             </router-link>
-            
-            <v-flex class="d-flex justify-center ml-16">
-                <div class="text-lg-center">
-                    <v-card-title primary-title class="layout justify-center">Project</v-card-title>
-                    <h1>{{project.name}}</h1>
-                </div>
-            </v-flex>
 
+            <v-layout justify-end>
             <router-link
                     :to="{ name: 'TaskForm', params: { projectId: project.id } }"
             >
@@ -41,8 +35,14 @@
                     <v-btn text large>Edit project</v-btn>
                 </div>
             </router-link>
+            </v-layout>
         </v-layout>
-
+        <v-flex class="d-flex justify-center">
+            <div class="text-lg-center">
+                <v-card-title primary-title class="layout justify-center">Project</v-card-title>
+                <h1>{{project.name}}</h1>
+            </div>
+        </v-flex>
         <div class="mt-16">
             <b>Description:</b>
             {{project.description}}

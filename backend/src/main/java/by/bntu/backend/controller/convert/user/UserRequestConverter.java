@@ -1,5 +1,6 @@
-package by.bntu.backend.controller.convert;
+package by.bntu.backend.controller.convert.user;
 
+import by.bntu.backend.controller.convert.EntityConverter;
 import by.bntu.backend.domain.Role;
 import by.bntu.backend.domain.User;
 import by.bntu.backend.dto.UserRequestDto;

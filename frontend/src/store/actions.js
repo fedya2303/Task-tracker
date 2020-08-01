@@ -69,6 +69,12 @@ const actions = {
                 commit('deleteTask', id)
             })
     },
+    async updateTask({ commit }, payload) {
+        return axios.put(`http://localhost:8082/projects/${payload.projectId}/tasks/${payload.id}`, payload)
+            .then((json) => {
+                commit('updateTask', json.data)
+            })
+    },
     async isAllowed( { commit }, payload) {
         return axios.get(`http://localhost:8082/projects/${payload.projectId}/participants/${payload.userId}`)
             .then((json) => {
