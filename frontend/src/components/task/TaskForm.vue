@@ -1,7 +1,24 @@
 <template>
     <v-container>
         <v-layout class="justify-space-between row">
-            <router-link :to="`/project/${projectId}`">
+            <router-link v-if="isTaskRow"
+                         :to="`/project/${projectId}`">
+                <v-btn class="py-8 px-0" rounded text>
+                    <v-icon class="" color="grey" size="40px">
+                        arrow_back_ios
+                    </v-icon>
+                </v-btn>
+            </router-link>
+            <router-link v-else-if="this.$route.params.taskId"
+                         :to="`/project/${projectId}/task/${this.$route.params.taskId}`">
+                <v-btn class="py-8 px-0" rounded text>
+                    <v-icon class="" color="grey" size="40px">
+                        arrow_back_ios
+                    </v-icon>
+                </v-btn>
+            </router-link>
+
+            <router-link v-else :to="`/project/${projectId}`">
                 <v-btn class="py-8 px-0" rounded text>
                     <v-icon class="" color="grey" size="40px">
                         arrow_back_ios
@@ -58,9 +75,10 @@
 <script>
     import {validationMixin} from 'vuelidate'
     import {required, maxLength} from 'vuelidate/lib/validators'
+    import axios from "axios";
 
     export default {
-        props: ['projectId'],
+        props: ['projectId','isTaskRow'],
         mixins: [validationMixin],
         validations: {
             name: {required, maxLength: maxLength(10)},
@@ -69,7 +87,7 @@
         },
         data() {
             return {
-                project: {},
+                task: {},
                 name: '',
                 description: '',
                 select: null,
@@ -105,17 +123,40 @@
         },
 
         methods: {
+            async loadTask() {
+                if (this.$route.params.taskId) {
+                    axios.get(`http://localhost:8082/projects/${this.$route.params.projectId}/tasks/${this.$route.params.taskId}`)
+                        .then((json) => {
+                            this.task = json.data;
+                            this.name = this.task.name;
+                            this.description = this.task.description;
+                            this.select = this.task.status;
+                        })
+                }
+            },
             submit() {
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
-                    this.$store.dispatch('createTask', {
-                        id: this.projectId,
-                        name: this.name,
-                        description: this.description,
-                        status: this.select
-                    }).then(() => {
-                        this.$router.push({path: `/project/${this.projectId}`})
-                    })
+                    if (this.$route.params.taskId) {
+                        this.$store.dispatch('updateTask', {
+                            projectId: this.$route.params.projectId,
+                            id: this.$route.params.taskId,
+                            name: this.name,
+                            description: this.description,
+                            status: this.select
+                        }).then(() => {
+                            this.$router.push(`/project/${this.$route.params.projectId}/task/${this.$route.params.taskId}`)
+                        })
+                    } else {
+                        this.$store.dispatch('createTask', {
+                            id: this.projectId,
+                            name: this.name,
+                            description: this.description,
+                            status: this.select
+                        }).then(() => {
+                            this.$router.push({path: `/project/${this.projectId}`})
+                        })
+                    }
                 }
             },
             clear() {
@@ -124,6 +165,9 @@
                 this.description = ''
                 this.select = null
             }
+        },
+        created() {
+            this.loadTask()
         }
     }
 </script>

@@ -46,6 +46,16 @@ const mutations = {
             state.tasks = [task]
         }
     },
+    updateTask(state, task) {
+        if (state.tasks) {
+            const updateIndex = state.tasks.findIndex(item => item.id === task.taskId)
+            state.tasks = {
+                ...state.tasks.slice(0, updateIndex),
+                task,
+                ...state.tasks.slice(updateIndex + 1)
+            }
+        }
+    },
     deleteTask(state, id) {
         const deleteIndex = state.tasks.findIndex(item => item.id === id)
 
