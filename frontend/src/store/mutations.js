@@ -64,6 +64,9 @@ const mutations = {
             ...state.tasks.slice(deleteIndex + 1)
         ]
     },
+    addCommentMutation(state, comment) {
+        console.log(comment)
+    },
     setIsAllowed(state, isAllowed) {
         state.isAllowed = isAllowed
     }

@@ -21,4 +21,8 @@ public class CommentService {
     public List<Comment> getAllCommentsFotTask(Long taskId) {
         return commentRepo.findAllByTaskId(taskId);
     }
+
+    public Comment save(Comment comment) {
+        return commentRepo.save(comment);
+    }
 }

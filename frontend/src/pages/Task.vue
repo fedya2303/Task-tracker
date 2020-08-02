@@ -34,7 +34,9 @@
             </div>
             <h3 class="mt-10">Comments:</h3>
             <comment-list
-                    :comments="task.comments"
+                    :comments="comments"
+                    :task-id="task.id"
+                    :task="task"
             >
             </comment-list>
         </div>
@@ -51,6 +53,14 @@
         data() {
             return {
                 task: {}
+            }
+        },
+        computed: {
+            comments: function() {
+                if(this.task) {
+                    return ((this.task.comments) || []).sort((a, b) => (a.id - b.id))
+                }
+                return null
             }
         },
         methods: {
