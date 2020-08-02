@@ -80,6 +80,12 @@ const actions = {
             .then((json) => {
                 commit('setIsAllowed', json.data)
             })
+    },
+    async addCommentAction({commit}, comment) {
+        return axios.post(`http://localhost:8082/projects/${comment.projectId}/tasks/${comment.task.id}/comments`, comment)
+            .then((json) => {
+                commit('addCommentMutation', json.data)
+            })
     }
 };
 
