@@ -1,0 +1,43 @@
+package by.bntu.backend.security;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class JWTAuthenticationFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException
+    {
+        try {
+            String contextPath = request.getContextPath();
+            String pathInfo = request.getPathInfo();
+            String requestURI = request.getRequestURI();
+            StringBuffer requestURL = request.getRequestURL();
+            if (("/registration").equals(request.getRequestURI()) ||
+                    ("/login").equals(request.getRequestURI()) ||
+                    request.getRequestURI().contains("/activate")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            Authentication authentication = TokenAuthenticationHelper.getAuthentication(request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException |
+                SignatureException | IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
+        }
+    }
+}
