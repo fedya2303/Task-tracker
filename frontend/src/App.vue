@@ -71,7 +71,7 @@
     },
     created() {
       this.isAuthenticated = localStorage.getItem('auth');
-      // this.$store.dispatch('userCreds');
+      this.$store.dispatch('userCreds');
       // Use localstorage because isAuthenticated from $store is undefined when event is called
       EventBus.$on('authenticated', () => {
         this.isAuthenticated = localStorage.getItem('auth');

@@ -9,6 +9,7 @@ import by.bntu.backend.service.TaskService;
 import by.bntu.backend.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,11 +31,13 @@ public class CommentController {
 
     @GetMapping("/tasks/{taskId}/comments")
     @JsonView(Views.FullComment.class)
+    @Transactional
     public List<Comment> getAllCommentForTask(@PathVariable("taskId") Long taskId) {
         return commentService.getAllCommentsFotTask(taskId);
     }
 
     @PostMapping("/projects/{projectId}/tasks/{taskId}/comments")
+    @Transactional
     public Comment addComment(
             @PathVariable("projectId") Long projectId,
             @PathVariable("taskId") Long taskId,

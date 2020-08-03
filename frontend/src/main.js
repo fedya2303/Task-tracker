@@ -13,16 +13,16 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
 
-// axios.interceptors.response.use((response) => Promise.resolve(response),
-//     (error) => {
-//         if (error.response.status === 401) {
-//             console.log('Unauthorized, logging out ...');
-//             store.dispatch('userSignOut');
-//             router.replace('signIn');
-//             return Promise.reject(error);
-//         }
-//         return Promise.reject(error.response);
-//     });
+axios.interceptors.response.use((response) => Promise.resolve(response),
+    (error) => {
+        if (error.response.status === 401) {
+            console.log('Unauthorized, logging out ...');
+            store.dispatch('userSignOut');
+            router.replace('signIn');
+            return Promise.reject(error);
+        }
+        return Promise.reject(error.response);
+    });
 
 new Vue({
     router,

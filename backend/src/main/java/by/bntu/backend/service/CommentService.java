@@ -1,7 +1,6 @@
 package by.bntu.backend.service;
 
 import by.bntu.backend.domain.Comment;
-import by.bntu.backend.domain.Task;
 import by.bntu.backend.repository.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

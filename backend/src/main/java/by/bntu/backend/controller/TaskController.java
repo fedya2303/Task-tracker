@@ -11,6 +11,7 @@ import by.bntu.backend.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,6 +37,7 @@ public class TaskController {
 
     @GetMapping("/projects/{projectId}/tasks/{taskId}")
     @JsonView(Views.FullTask.class)
+    @Transactional
     public Task getTask(
             @PathVariable("taskId") Long taskId,
             @PathVariable("projectId") Long projectId
@@ -51,6 +53,7 @@ public class TaskController {
 
     @GetMapping("/projects/{projectId}/tasks")
     @JsonView(Views.IdName.class)
+    @Transactional
     public List<Task> getAllTasksForProject(
             @PathVariable("projectId") Long projectId
     ) {
@@ -58,6 +61,7 @@ public class TaskController {
     }
 
     @PostMapping("/projects/{projectId}/tasks")
+    @Transactional
     public Task createTask(
             @PathVariable("projectId") Long projectId,
             @RequestBody TaskRequestDto taskRequestDto
@@ -69,6 +73,7 @@ public class TaskController {
     }
 
     @PutMapping("/projects/{projectId}/tasks/{taskId}")
+    @Transactional
     public Task updateTask(
             @PathVariable("taskId") Long taskId,
             @PathVariable("projectId") Long projectId,
